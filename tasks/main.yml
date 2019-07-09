@@ -1,0 +1,55 @@
+---
+
+- name: redis server present
+  apt:
+    pkg:
+      - redis-server
+      - redis-tools
+      - php-redis
+    state: present
+
+- name: default redis-server service disabled
+  systemd:
+    name: redis-server
+    state: stopped
+    enabled: no
+    masked: yes
+
+- name: instance config present
+  template:
+    src: redis.conf.j2
+    dest: "/etc/redis/redis-{{ item.port }}.conf"
+    owner: redis
+    group: redis
+    force: no
+  with_items: "{{ redis_instances }}"
+
+- name: instance service present
+  template:
+    src: redis-server.service.j2
+    dest: "/etc/systemd/system/redis-server-{{ item.port }}.service"
+    force: no
+  with_items: "{{ redis_instances }}"
+
+- name: instance directories present
+  file:
+    path: "/var/lib/redis/{{ item.port }}"
+    state: directory
+    owner: redis
+    group: redis
+  with_items: "{{ redis_instances }}"
+
+- name: redis-server service enabled and running
+  systemd:
+    name: "redis-server-{{ item.port }}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  with_items: "{{ redis_instances }}"
+
+- name: instance ports present in /etc/services
+  lineinfile:
+    path: /etc/services
+    regexp: "^{{ item.name }}\t\t"
+    line: "{{ item.name }}\t\t{{ item.port }}/tcp"
+  with_items: "{{ redis_instances }}"
