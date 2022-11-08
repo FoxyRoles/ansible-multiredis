@@ -1,4 +1,4 @@
-# ansible-composer
+# ansible-multiredis
 
 Setups multiple Redis instances on same system.
 
