@@ -5,7 +5,6 @@
     pkg:
       - redis-server
       - redis-tools
-      - php-redis
     state: present
 
 - name: default redis-server service disabled
