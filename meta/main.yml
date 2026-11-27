@@ -1,0 +1,26 @@
+---
+
+galaxy_info:
+  namespace: sunfoxcz
+  role_name: multiredis
+  author: Tomas Jacik
+  description: Install Redis and configure multiple instances with systemd.
+  company: sunfoxcz
+  license: MIT
+  min_ansible_version: '2.19'
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+        - trixie
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+        - noble
+        - resolute
+  galaxy_tags:
+    - redis
+    - database
+
+dependencies: []

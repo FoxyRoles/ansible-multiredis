@@ -1,3 +1,4 @@
+{{ ansible_managed | default('Ansible managed') | comment(prefix='', postfix='') | trim }}
 port {{ item.port }}
 dir /var/lib/redis/{{ item.port }}
 pidfile /var/run/redis/redis-server-{{ item.port }}.pid

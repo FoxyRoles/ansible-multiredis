@@ -2,6 +2,10 @@
 
 Setups multiple Redis instances on same system.
 
+## Requirements
+
+- `ansible-core` 2.19 or newer.
+
 ### Example playbook
 ```yaml
 ---

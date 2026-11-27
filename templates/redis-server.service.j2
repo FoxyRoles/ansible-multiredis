@@ -1,3 +1,4 @@
+{{ ansible_managed | default('Ansible managed') | comment(prefix='', postfix='') | trim }}
 [Unit]
 Description=Advanced key-value store
 After=network.target
